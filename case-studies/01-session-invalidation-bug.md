@@ -87,7 +87,7 @@ Response: 200 OK ⚠️
 
 To confirm this wasn't browser-specific, I tested in Postman:
 ```
-POST https://czechibank.ostrava.digital/api/v1/transactions
+POST https://[dev-environment]/api/v1/`transactions
 Headers:
   (No cookie, no API key, no authentication)
 Body:
@@ -128,7 +128,7 @@ User → Logout → Session Token Deleted → API Does NOT Validate → Returns 
 ## 📋 Reproduction Steps
 
 **Environment:**
-- Application: https://czechibank.ostrava.digital/
+- Application: https://[dev-environment]
 - Browser: Safari, Chrome (reproduced in both)
 - User: Test account with valid credentials
 
