@@ -148,7 +148,7 @@ I documented 6 test registrations to prove the pattern:
 
 **Request:**
 ```
-POST https://czechibank.ostrava.digital/api/v1/user/create
+POST https://[dev-environment]/api/v1/user/create
 Body:
 {
   "name": "Test User",
@@ -178,10 +178,6 @@ Response:
 API keys should be:
 
 1. **Cryptographically Random**
-```javascript
-   const apiKey = crypto.randomBytes(32).toString('hex');
-   // Result: completely random 64-char string
-```
 
 2. **Independent from User ID**
    - No relationship between ID and API key
