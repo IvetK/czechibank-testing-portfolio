@@ -110,31 +110,6 @@ To understand why this is a problem, let's review what these status codes mean:
 | **401 Unauthorized** | Authentication failed | Missing, invalid, expired, or revoked credentials |
 | **500 Internal Server Error** | Server encountered unexpected condition | Database errors, unhandled exceptions, server crashes |
 
-### What's Happening Under the Hood
-
-Based on the error response, I hypothesize this is what's happening in the backend:
-```javascript
-// Simplified pseudo-code
-
-async function validateApiKey(key) {
-  const apiKey = await database.findApiKey(key);
-  
-  if (!apiKey) {
-    // Key doesn't exist in database
-    return 401; // ✅ Correctly returns 401
-  }
-  
-  if (apiKey.isDeleted) {
-    // Key exists but is marked as deleted
-    // ⚠️ Code doesn't handle this scenario!
-    // Probably throws an error that isn't caught
-    throw new Error("API key is deleted"); // ❌ Becomes 500
-  }
-  
-  return 200; // Key is valid
-}
-```
-
 **The problem:** When an API key is marked as deleted in the database, the code doesn't handle this case gracefully, causing an unhandled exception that bubbles up as a 500 error.
 
 ---
@@ -205,7 +180,7 @@ Using 500 for authentication failures is technically incorrect.
 ## 📋 Reproduction Steps
 
 **Environment:**
-- API Base URL: `https://develop.czechibank.ostrava.digital/api/v1/`
+- API Base URL: `https://[dev-environment]/api/v1/`
 - Tool: Postman
 - Endpoint: `/transactions`
 
@@ -218,7 +193,7 @@ Using 500 for authentication failures is technically incorrect.
 
 1. Open Postman
 2. Create a new GET request
-3. URL: `https://develop.czechibank.ostrava.digital/api/v1/transactions/`
+3. URL: `https://[dev-environment]/api/v1/transactions/`
 4. In Headers tab, add:
    - Key: `x-api-key`
    - Value: `[your-deleted-api-key]`
@@ -234,87 +209,9 @@ Using 500 for authentication failures is technically incorrect.
 
 ## 🔧 Recommended Fix
 
-### Backend Solution
+### Backend Solution: Add proper error handling for deleted/invalid API keys
 
-**Add proper error handling for deleted/invalid API keys:**
-```javascript
-// Current code (causing the bug)
-async function validateApiKey(key) {
-  const apiKey = await database.findApiKey(key);
-  
-  if (!apiKey || apiKey.isDeleted) {
-    // ❌ Throws unhandled exception
-    throw new Error("Invalid API key");
-  }
-  
-  return apiKey;
-}
-
-// Fixed code
-async function validateApiKey(key) {
-  try {
-    const apiKey = await database.findApiKey(key);
-    
-    if (!apiKey) {
-      // Key doesn't exist
-      return { valid: false, reason: "API key not found" };
-    }
-    
-    if (apiKey.isDeleted) {
-      // Key was deleted
-      return { valid: false, reason: "API key has been deleted" };
-    }
-    
-    if (apiKey.expiresAt && apiKey.expiresAt < Date.now()) {
-      // Key has expired
-      return { valid: false, reason: "API key has expired" };
-    }
-    
-    return { valid: true, apiKey };
-    
-  } catch (error) {
-    // Log the actual error for debugging
-    console.error("Error validating API key:", error);
-    // But still return auth failure to client
-    return { valid: false, reason: "Authentication failed" };
-  }
-}
-
-// In the route handler
-app.get('/transactions', async (req, res) => {
-  const result = await validateApiKey(req.headers['x-api-key']);
-  
-  if (!result.valid) {
-    return res.status(401).json({
-      success: false,
-      message: "Unauthorized",
-      error: {
-        code: "401",
-        message: result.reason
-      }
-    });
-  }
-  
-  // Continue with the request...
-});
-```
-
-### Improved Error Messages
-
-Instead of generic "Internal server error", return informative auth errors:
-```json
-{
-  "success": false,
-  "message": "Unauthorized",
-  "error": {
-    "code": "401",
-    "message": "API key has been deleted. Please generate a new API key."
-  },
-  "meta": {
-    "timestamp": "2025-08-20T11:11:53.532Z"
-  }
-}
-```
+### Improved Error Messages: Instead of generic "Internal server error", return informative auth error i.e."API key has been deleted. Please generate a new API key."
 
 ---
 
@@ -375,7 +272,7 @@ All three issues point to the need for a comprehensive **authentication/authoriz
 
 **My Follow-up:**
 
-> "I previously sent a recording from a team call where this issue was discussed. Wanted to make sure it's documented properly. Should I close this ticket if it's already being addressed?"
+> "I saw a recording from a team call where this issue was discussed. Wanted to make sure it's documented properly. Should I close this ticket if it's already being addressed?"
 
 **Developer Clarification:**
 
