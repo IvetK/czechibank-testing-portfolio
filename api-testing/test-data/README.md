@@ -152,26 +152,6 @@ Tested edge values:
 3. Use the provided data in Postman/API client
 4. Verify actual status matches expected
 
-### **For Automated Testing:**
-These files are ready for:
-- Data-driven test frameworks (pytest, Jest, etc.)
-- CSV parsing in test scripts
-- Import into test management tools (TestRail, Zephyr)
-
-### **Example Python Usage:**
-```python
-import csv
-
-with open('transactions_scenarios.csv') as f:
-    reader = csv.DictReader(f)
-    for scenario in reader:
-        response = api.get(
-            f"/transactions/{scenario['tx_id']}", 
-            headers={"x-api-key": scenario['api_key']}
-        )
-        assert response.status_code == int(scenario['expected_status'])
-```
-
 ---
 
 ## 📊 Test Coverage Summary
