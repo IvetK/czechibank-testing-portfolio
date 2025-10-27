@@ -1,0 +1,1736 @@
+{
+	"info": {
+		"_postman_id": "b5637054-829c-4c01-8a40-ed35cb843e33",
+		"name": "CzechiBank",
+		"description": "# ðŸš€ Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## ðŸ”– **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" width=\"2162\" height=\"1530\">\n\n## ðŸ’ª Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## ðŸ’¡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38156250"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get current user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{apikey}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.czechibank.ostrava.digital/api/v1/user",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"czechibank",
+								"ostrava",
+								"digital"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Harry Potter\",\n    \"email\": \"harry.potter@email.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.czechibank.ostrava.digital/api/v1/user/create",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"czechibank",
+								"ostrava",
+								"digital"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"create"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Get APIkey",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{apikey}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/apikey",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"apikey"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bank Accounts",
+			"item": [
+				{
+					"name": "Create new  bankaccount",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{apikey}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"currency\": \"CZECHITOKEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.czechibank.ostrava.digital/api/v1/bank-account/create",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"czechibank",
+								"ostrava",
+								"digital"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bank-account",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get bank account (all bank accounts of the user)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "QgQvCPPEunXWIZXcpZexXbIuuISHjRbbRdKwWfNJzKyInBKXgJhgIzawQlMZyyNJ",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://develop.czechibank.ostrava.digital/api/v1/bank-account/",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"czechibank",
+								"ostrava",
+								"digital"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bank-account",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all bank accounts (All users of the bank)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{apikey}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://develop.czechibank.ostrava.digital/api/v1/bank-account/get-all",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"czechibank",
+								"ostrava",
+								"digital"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bank-account",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all bank accounts (All users of the bank) Pagination",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{apikey}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://develop.czechibank.ostrava.digital/api/v1/bank-account/get-all?page=2&limit=10",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"czechibank",
+								"ostrava",
+								"digital"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bank-account",
+								"get-all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get bank account ID",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{apikey}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}api/v1/bank-account/{id}",
+							"host": [
+								"{{BASE_URL}}api"
+							],
+							"path": [
+								"v1",
+								"bank-account",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Bank Account ID",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{apikey}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://czechibank.ostrava.digital/api/v1/bank-account/cmgetov3x000f2j7aefw0sl5z",
+							"protocol": "https",
+							"host": [
+								"czechibank",
+								"ostrava",
+								"digital"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bank-account",
+								"cmgetov3x000f2j7aefw0sl5z"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rename bank account ID",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{apikey}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \" ðŸ¤™ðŸ»ðŸ \"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}api/v1/bank-account/cmgeu0yys000n2j7ast4dbc9v",
+							"host": [
+								"{{BASE_URL}}api"
+							],
+							"path": [
+								"v1",
+								"bank-account",
+								"cmgeu0yys000n2j7ast4dbc9v"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "Transaction {ID}",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "QgQvCPPEunXWIZXcpZexXbIuuISHjRbbRdKwWfNJzKyInBKXgJhgIzawQlMZyyNJ",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://develop.czechibank.ostrava.digital/api/v1/transactions/cmeh0lwfm0013103f9b8236cl",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"czechibank",
+								"ostrava",
+								"digital"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"cmeh0lwfm0013103f9b8236cl"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Transactions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "ZtczQnUqoeXccpzvlyBErwijqgsdsdAGSymseOEtKChGybYPfUCntcntwtVURaZM",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.czechibank.ostrava.digital/api/v1/transactions",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"czechibank",
+								"ostrava",
+								"digital"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Transactions Pagination",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "ZtczQnUqoeXccpzvlyBErwijqgsdsdAGSymseOEtKChGybYPfUCntcntwtVURaZM",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.czechibank.ostrava.digital/api/v1/transactions?page=9&limit=fg",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"czechibank",
+								"ostrava",
+								"digital"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "9"
+								},
+								{
+									"key": "limit",
+									"value": "fg"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trancascion create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{apikey}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-api-key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 3,\n  \"fromBankNumber\": \"277296219210/5555\",\n  \"toBankNumber\": \"159968087860/5555\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.czechibank.ostrava.digital/api/v1/transactions/create",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"czechibank",
+								"ostrava",
+								"digital"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"create"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "About",
+			"item": [
+				{
+					"name": "About",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://develop.czechibank.ostrava.digital/api/v1/about",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"czechibank",
+								"ostrava",
+								"digital"
+							],
+							"path": [
+								"api",
+								"v1",
+								"about"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "training",
+			"item": [
+				{
+					"name": "Api key training scenarios",
+					"item": [
+						{
+							"name": "Get",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// EfektivnÃ­ BASE_URL jen z Env/Collection (CSV ji nepÅ™ebije)",
+											"const base = (pm.environment.get(\"BASE_URL\") || pm.collectionVariables.get(\"BASE_URL\") || \"\").toString().trim();",
+											"pm.variables.set(\"E_BASE\", base);",
+											"",
+											"// Trimni a nastav x-api-key z CSV (nebo vypni)",
+											"const rawKey = pm.iterationData.get(\"api_key\");",
+											"const key = rawKey ? String(rawKey).trim() : \"\";",
+											"pm.request.headers.remove(\"Authorization\");",
+											"if (!key) {",
+											"  pm.request.headers.upsert({ key: \"x-api-key\", value: \"\", disabled: true });",
+											"} else {",
+											"  pm.request.headers.upsert({ key: \"x-api-key\", value: key });",
+											"}",
+											"",
+											"// Debug do Console, aÅ¥ hned vidÃ­Å¡, co se posÃ­lÃ¡",
+											"console.log(\"ITER:\", pm.info.iteration, \"E_BASE:\", base, \"api_key:\", JSON.stringify(key));",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{apikey}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_URL}}api/v1/apikey",
+									"host": [
+										"{{BASE_URL}}api"
+									],
+									"path": [
+										"v1",
+										"apikey"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									"// Skip flag z requestu/folderu (kdyÅ¾ chceÅ¡ testy pÅ™eskoÄit)",
+									"if (pm.variables.get(\"skip_tests\") === \"true\") {",
+									"  pm.test(\"Skipped by flag\", () => pm.expect(true).to.be.true);",
+									"  return;",
+									"}",
+									"",
+									"// oÄekÃ¡vanÃ½ status: 1) CSV, 2) collection variable, 3) default 200",
+									"const raw = pm.iterationData.get(\"expected_status\") ?? pm.collectionVariables.get(\"expected_status\") ?? 200;",
+									"const expected = parseInt(raw, 10);",
+									"pm.test(`Status == ${expected}`, () => pm.response.to.have.status(expected));",
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "E2E Transaction Flow",
+					"item": [
+						{
+							"name": "Transaction Create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// 1) status dle CSV (nebo 201 jako default)",
+											"const exp = parseInt(pm.iterationData.get(\"expected_post\") || \"201\", 10);",
+											"pm.test(`POST status == ${exp}`, () => pm.response.to.have.status(exp));",
+											"",
+											"// 2) vytÄ›Å¾enÃ­ ID pÅ™esnou cestou dle vaÅ¡Ã­ odpovÄ›di",
+											"let txId = null;",
+											"try {",
+											"  const b = pm.response.json();",
+											"  txId = b?.data?.message?.id;    // <<< DÅ®LEÅ½ITÃ‰ pro tvoje API",
+											"  console.log(\"POST body preview:\", JSON.stringify(b));",
+											"} catch (e) {}",
+											"try {",
+											"  const b = pm.response.json();",
+											"  // u POST mÃ¡Å¡ strukturu data.message.{...}",
+											"  const m = b?.data?.message || {};",
+											"  pm.environment.set(\"tx_amount\", String(m.amount));",
+											"  pm.environment.set(\"tx_toBankNumber\", String(m.to?.number || \"\"));",
+											"} catch (e) {}",
+											"",
+											"// fallback â€“ kdyby se struktura nÄ›kdy liÅ¡ila",
+											"if (!txId) {",
+											"  const loc = pm.response.headers.get(\"Location\") || pm.response.headers.get(\"location\");",
+											"  if (loc) {",
+											"    const m = String(loc).match(/\\/transactions\\/([^/?#]+)/);",
+											"    if (m) txId = m[1];",
+											"  }",
+											"}",
+											"",
+											"// 3) uloÅ¾enÃ­ / skip",
+											"if (txId) {",
+											"  pm.environment.set(\"tx_id\", String(txId));",
+											"  pm.environment.set(\"tx_amount\", String(pm.iterationData.get(\"amount\") ?? \"\"));       // pro kontrolu v GET",
+											"  pm.environment.set(\"tx_toBankNumber\", String(pm.iterationData.get(\"toBankNumber\") ?? \"\"));",
+											"  pm.test(\"tx_id uloÅ¾eno\", () => pm.expect(pm.environment.get(\"tx_id\")).to.exist);",
+											"  console.log(\"tx_id uloÅ¾enÃ©:\", txId);",
+											"} else {",
+											"  pm.environment.unset(\"tx_id\");",
+											"  pm.variables.set(\"skip\", \"true\");",
+											"  console.log(\"ID transakce se nepodaÅ™ilo najÃ­t. Response text:\", pm.response.text());",
+											"}",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{apikey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"amount\": {{amount}},\n  \"toBankNumber\": \"{{toBankNumber}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}api/v1/transactions/create",
+									"host": [
+										"{{BASE_URL}}api"
+									],
+									"path": [
+										"v1",
+										"transactions",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Transaction Get",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const exp = parseInt(pm.iterationData.get(\"expected_get\") || \"200\", 10);",
+											"pm.test(`GET status == ${exp}`, () => pm.response.to.have.status(exp));",
+											"",
+											"if (pm.response.code === 200) {",
+											"  const body = pm.response.json();",
+											"  const t = body?.data?.transaction || {};",
+											"",
+											"  pm.test(\"ID sedÃ­\", () => {",
+											"    pm.expect(t.id).to.eql(pm.environment.get(\"tx_id\"));",
+											"  });",
+											"",
+											"  pm.test(\"Amount sedÃ­\", () => {",
+											"    pm.expect(String(t.amount)).to.eql(String(pm.environment.get(\"tx_amount\")));",
+											"  });",
+											"",
+											"  pm.test(\"toBankNumber sedÃ­\", () => {",
+											"    pm.expect(String(t.to?.number).trim())",
+											"      .to.eql(String(pm.environment.get(\"tx_toBankNumber\")).trim());",
+											"  });",
+											"}",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{apikey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}api/v1/transactions/{{tx_id}}",
+									"host": [
+										"{{BASE_URL}}api"
+									],
+									"path": [
+										"v1",
+										"transactions",
+										"{{tx_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									"// â‘  X-API-Key z CSV (trim) + vypnutÃ­ dÄ›dÄ›nÃ©ho Authorization",
+									"const rawKey = pm.iterationData.get(\"api_key\");",
+									"const key = rawKey ? String(rawKey).trim() : \"\";",
+									"pm.request.headers.remove(\"Authorization\");",
+									"",
+									"if (!key) {",
+									"  pm.request.headers.upsert({ key: \"X-API-Key\", value: \"\", disabled: true });",
+									"} else {",
+									"  pm.request.headers.upsert({ key: \"X-API-Key\", value: key });",
+									"}",
+									"",
+									"// â‘¡ LokÃ¡lnÃ­ BASE_URL z Env/Collection (pro jistotu)",
+									"const base = (pm.environment.get(\"BASE_URL\") || pm.collectionVariables.get(\"BASE_URL\") || \"\").toString().trim();",
+									"pm.variables.set(\"E_BASE\", base);",
+									"",
+									"// â‘¢ Reset skip flagu na zaÄÃ¡tku kaÅ¾dÃ©ho requestu",
+									"pm.variables.set(\"skip\", \"false\");",
+									"",
+									"// â‘£ Debug do konzole (pomÃ¡hÃ¡ pÅ™i hledÃ¡nÃ­ chyb)",
+									"console.log(\"ITER:\", pm.info.iteration, \"BASE:\", base, \"X-API-Key:\", JSON.stringify(key));",
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "E2E Bank account FLow",
+					"item": [
+						{
+							"name": "Create Bank account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Status (z CSV nebo 201 jako default)",
+											"const exp = parseInt(pm.iterationData.get(\"expected_post\") || \"201\", 10);",
+											"pm.test(`POST status == ${exp}`, () => pm.response.to.have.status(exp));",
+											"",
+											"// VytÄ›Å¾enÃ­ ID â€“ pÅ™esnÃ¡ cesta podle tvÃ© odpovÄ›di:",
+											"let accId = null;",
+											"try {",
+											"  const b = pm.response.json();",
+											"  accId = b?.data?.bankAccount?.data?.id;   // <<< TADY JE TO DÅ®LEÅ½ITÃ‰",
+											"  console.log(\"POST body preview:\", JSON.stringify(b));",
+											"} catch(e){}",
+											"",
+											"// Fallback: Location header (kdyby nÄ›kdy nebylo body)",
+											"if (!accId) {",
+											"  const loc = pm.response.headers.get(\"Location\") || pm.response.headers.get(\"location\");",
+											"  if (loc) {",
+											"    const m = String(loc).match(/\\/bank-account\\/([^/?#]+)/);",
+											"    if (m) accId = m[1];",
+											"  }",
+											"}",
+											"",
+											"// UloÅ¾ / nebo skip",
+											"if (accId) {",
+											"  pm.environment.set(\"bank_account_id\", String(accId));",
+											"  pm.test(\"bank_account_id uloÅ¾eno\", () => pm.expect(pm.environment.get(\"bank_account_id\")).to.exist);",
+											"  console.log(\"bank_account_id:\", accId);",
+											"} else {",
+											"  pm.environment.unset(\"bank_account_id\");",
+											"  pm.variables.set(\"skip\", \"true\");",
+											"  console.log(\"ID ÃºÄtu se nepodaÅ™ilo vytÄ›Å¾it. Headers:\", pm.response.headers.all());",
+											"  try { console.log(\"Body RAW:\", pm.response.text()); } catch(e){}",
+											"}",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{apikey}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"currency\": \"CZECHITOKEN\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}api/v1/bank-account/create",
+									"host": [
+										"{{BASE_URL}}api"
+									],
+									"path": [
+										"v1",
+										"bank-account",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get bank account details {id}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (!pm.environment.get(\"bank_account_id\") || pm.variables.get(\"skip\") === \"true\") {",
+											"  pm.test(\"GET skipped (no bank_account_id)\", () => pm.expect(true).to.be.true);",
+											"} else {",
+											"  const exp = parseInt(pm.iterationData.get(\"expected_get\") || \"200\", 10);",
+											"  pm.test(`GET status == ${exp}`, () => pm.response.to.have.status(exp));",
+											"}",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{apikey}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "x-api-key",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{apikey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{BASE_URL}}api/v1/bank-account/{{bank_account_id}}",
+									"host": [
+										"{{BASE_URL}}api"
+									],
+									"path": [
+										"v1",
+										"bank-account",
+										"{{bank_account_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DEL bank account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (!pm.environment.get(\"bank_account_id\") || pm.variables.get(\"skip\") === \"true\") {",
+											"  pm.test(\"DELETE skipped (no bank_account_id)\", () => pm.expect(true).to.be.true);",
+											"} else {",
+											"  const exp = parseInt(pm.iterationData.get(\"expected_delete\") || \"204\", 10);",
+											"  pm.test(`DELETE status == ${exp}`, () => pm.response.to.have.status(exp));",
+											"}",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{apikey}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_URL}}api/v1/bank-account/{{bank_account_id}}",
+									"host": [
+										"{{BASE_URL}}api"
+									],
+									"path": [
+										"v1",
+										"bank-account",
+										"{{bank_account_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									"// 1) X-API-Key z CSV (trim) + zruÅ¡ pÅ™Ã­padnÃ½ zdÄ›dÄ›nÃ½ Authorization",
+									"const rawKey = pm.iterationData.get(\"api_key\");",
+									"const key = rawKey ? String(rawKey).trim() : \"\";",
+									"pm.request.headers.remove(\"Authorization\");",
+									"",
+									"if (!key) {",
+									"  pm.request.headers.upsert({ key: \"X-API-Key\", value: \"\", disabled: true });",
+									"} else {",
+									"  pm.request.headers.upsert({ key: \"X-API-Key\", value: key });",
+									"}",
+									"",
+									"// 2) Reset skip pro kaÅ¾dÃ½ request",
+									"pm.variables.set(\"skip\", \"false\");",
+									"",
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Transactionn ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// #1 sanity â€“ aÅ¥ vÃ­Å¡, Å¾e testy bÄ›Å¾Ã­",
+									"pm.test(\"Tests bÄ›Å¾Ã­\", () => pm.expect(true).to.be.true);",
+									"",
+									"// #2 status podle CSV nebo default 200",
+									"const exp = parseInt(pm.iterationData.get(\"expected_status\") || \"200\", 10);",
+									"pm.test(`Status == ${exp}`, () => pm.response.to.have.status(exp));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ÄŒte hodnoty z CSV (Runner Data)",
+									"const csvKey = pm.iterationData.get(\"api_key\");",
+									"",
+									"// ZabraÅˆ zdÄ›dÄ›nÃ© autorizaci (jinak by proÅ¡la i missing/invalid)",
+									"pm.request.headers.remove(\"Authorization\");",
+									"",
+									"// X-API-Key nastav/odeber podle CSV",
+									"if (!csvKey) {",
+									"  pm.request.headers.upsert({ key: \"X-API-Key\", value: \"\", disabled: true });",
+									"} else {",
+									"  pm.request.headers.upsert({ key: \"X-API-Key\", value: String(csvKey) });",
+									"}",
+									"",
+									"// Pokud pouÅ¾Ã­vÃ¡te Bearer a chceÅ¡ ho Å™Ã­dit z CSV:",
+									"const csvToken = pm.iterationData.get(\"token\");",
+									"if (csvToken) {",
+									"  pm.request.headers.upsert({ key: \"Authorization\", value: `Bearer ${csvToken}` });",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}api/v1/transactions/cmeh0lwfm0013103f9b8236cl",
+							"host": [
+								"{{BASE_URL}}api"
+							],
+							"path": [
+								"v1",
+								"transactions",
+								"cmeh0lwfm0013103f9b8236cl"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transactions",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ÄŒte hodnoty z CSV (Runner Data)",
+									"const csvKey = pm.iterationData.get(\"api_key\");",
+									"",
+									"// ZabraÅˆ zdÄ›dÄ›nÃ© autorizaci (jinak by proÅ¡la i missing/invalid)",
+									"pm.request.headers.remove(\"Authorization\");",
+									"",
+									"// X-API-Key nastav/odeber podle CSV",
+									"if (!csvKey) {",
+									"  pm.request.headers.upsert({ key: \"X-API-Key\", value: \"\", disabled: true });",
+									"} else {",
+									"  pm.request.headers.upsert({ key: \"X-API-Key\", value: String(csvKey) });",
+									"}",
+									"",
+									"// Pokud pouÅ¾Ã­vÃ¡te Bearer a chceÅ¡ ho Å™Ã­dit z CSV:",
+									"const csvToken = pm.iterationData.get(\"token\");",
+									"if (csvToken) {",
+									"  pm.request.headers.upsert({ key: \"Authorization\", value: `Bearer ${csvToken}` });",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// #1 sanity â€“ aÅ¥ vÃ­Å¡, Å¾e testy bÄ›Å¾Ã­",
+									"pm.test(\"Tests bÄ›Å¾Ã­\", () => pm.expect(true).to.be.true);",
+									"",
+									"// #2 status podle CSV nebo default 200",
+									"const exp = parseInt(pm.iterationData.get(\"expected_status\") || \"200\", 10);",
+									"pm.test(`Status == ${exp}`, () => pm.response.to.have.status(exp));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}api/v1/transactions/",
+							"host": [
+								"{{BASE_URL}}api"
+							],
+							"path": [
+								"v1",
+								"transactions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// sanity, aÅ¥ Runner nÄ›co vidÃ­",
+									"pm.test(\"Tests bÄ›Å¾Ã­\", () => pm.expect(true).to.be.true);",
+									"",
+									"// oÄekÃ¡vanÃ½ status z CSV, fallback 200 pÅ™i manuÃ¡lnÃ­m Send",
+									"const exp = parseInt(pm.iterationData.get(\"expected_status\") || \"200\", 10);",
+									"pm.test(`Status == ${exp}`, () => pm.response.to.have.status(exp));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}api/v1/user/",
+							"host": [
+								"{{BASE_URL}}api"
+							],
+							"path": [
+								"v1",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bankaccount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// sanity, aÅ¥ Runner nÄ›co vidÃ­",
+									"pm.test(\"Tests bÄ›Å¾Ã­\", () => pm.expect(true).to.be.true);",
+									"",
+									"// oÄekÃ¡vanÃ½ status z CSV, fallback 200 pÅ™i manuÃ¡lnÃ­m Send",
+									"const exp = parseInt(pm.iterationData.get(\"expected_status\") || \"200\", 10);",
+									"pm.test(`Status == ${exp}`, () => pm.response.to.have.status(exp));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/bank-account/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bank-account",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BankAccount_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// sanity, aÅ¥ Runner nÄ›co vidÃ­",
+									"pm.test(\"Tests bÄ›Å¾Ã­\", () => pm.expect(true).to.be.true);",
+									"",
+									"// oÄekÃ¡vanÃ½ status z CSV, fallback 200 pÅ™i manuÃ¡lnÃ­m Send",
+									"const exp = parseInt(pm.iterationData.get(\"expected_status\") || \"200\", 10);",
+									"pm.test(`Status == ${exp}`, () => pm.response.to.have.status(exp));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/bank-account/cmeb4g2hr000ppdi7ttyk6j9r",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bank-account",
+								"cmeb4g2hr000ppdi7ttyk6j9r"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"// EfektivnÃ­ BASE_URL jen z Env/Collection (CSV ji nepÅ™ebije)",
+							"const base = (pm.environment.get(\"BASE_URL\") || pm.collectionVariables.get(\"BASE_URL\") || \"\").toString().trim();",
+							"pm.variables.set(\"E_BASE\", base);",
+							"",
+							"// Trimni a nastav x-api-key z CSV (nebo vypni)",
+							"const rawKey = pm.iterationData.get(\"api_key\");",
+							"const key = rawKey ? String(rawKey).trim() : \"\";",
+							"pm.request.headers.remove(\"Authorization\");",
+							"if (!key) {",
+							"  pm.request.headers.upsert({ key: \"x-api-key\", value: \"\", disabled: true });",
+							"} else {",
+							"  pm.request.headers.upsert({ key: \"x-api-key\", value: key });",
+							"}",
+							"",
+							"// Debug do Console, aÅ¥ hned vidÃ­Å¡, co se posÃ­lÃ¡",
+							"console.log(\"ITER:\", pm.info.iteration, \"E_BASE:\", base, \"api_key:\", JSON.stringify(key));",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"// Skip flag z requestu/folderu (kdyÅ¾ chceÅ¡ testy pÅ™eskoÄit)",
+							"if (pm.variables.get(\"skip_tests\") === \"true\") {",
+							"  pm.test(\"Skipped by flag\", () => pm.expect(true).to.be.true);",
+							"  return;",
+							"}",
+							"",
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1",
+			"disabled": true
+		},
+		{
+			"key": "base_url",
+			"value": "https://develop.czechibank.ostrava.digital/",
+			"disabled": true
+		}
+	]
+}
