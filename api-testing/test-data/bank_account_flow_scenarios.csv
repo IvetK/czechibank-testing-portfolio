@@ -1,3 +1,0 @@
-scenario,api_key,expected_post,expected_get,expected_delete
-happy_path, fAHLepbnGYWXOKPKwYBqdqfgCxfukBMjDrZDvpmsSkdPyVNNKyoOCgYxLBDWtdXO,201,200,200
-unauthorized_missing_key,,401,401,401
