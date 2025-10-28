@@ -2,72 +2,36 @@
 
 ## Overview
 
-This section provides quantitative analysis of testing activities, coverage metrics, and quality indicators for the CzechiBank testing project. All metrics are based on systematic testing conducted from July to September 2025.
+This section provides quantitative analysis of testing activities, coverage metrics, and quality indicators for the CzechiBank testing project. **All metrics are based on actual testing data** from July to September 2025.
 
 ---
 
 ## 🎯 Summary Dashboard
 
-| Metric | Value | Status |
-|--------|-------|--------|
-| **Total Bugs Found** | 14+ | 🔴 High impact findings |
-| **Bug Approval Rate** | 100% | ✅ All confirmed by developers |
-| **Test Cases Executed** | 50+ | ✅ Comprehensive coverage |
-| **API Scenarios** | 30+ | ✅ Data-driven testing |
-| **API Endpoints Tested** | 11 | ✅ Full CRUD coverage |
-| **Testing Duration** | 12 weeks | ✅ July - September 2025 |
-| **Browsers Tested** | 2 | Safari, Chrome |
+| Metric | Value | Notes |
+|--------|-------|-------|
+| **Total Bugs Documented** | 14+ | All confirmed by developers |
+| **Test Cases Documented** | 50+ | Comprehensive coverage | collaboration with other QA tester |
+| **API Test Scenarios (CSV)** | 30 | Data-driven testing approach |
+| **API Endpoints Tested** | 11 | Complete endpoint coverage |
+| **Postman Requests** | 15 | Organized by functionality |
+| **Testing Duration** | 12 weeks | July - September 2025 |
+| **Browsers Tested** | 2 | Chrome, Safari |
 
 ---
 
-## 🐛 Bug Statistics
+## 🐛 Bug Overview
 
-### Distribution by Severity
+### Documented Bugs
 
-| Severity | Count | Percentage | Status |
-|----------|-------|------------|--------|
-| **High** | 3 | 21% | All approved and prioritized for fix |
-| **Medium** | 4 | 29% | Approved, scheduled for resolution |
-| **Low** | 7+ | 50% | Documented, lower priority |
-| **Total** | **14+** | **100%** | **100% approval rate** |
+All bugs documented in this portfolio were **confirmed and approved by the development team**. The portfolio showcases bugs that represent real issues discovered during systematic testing.
 
-#### Severity Visualization
-```
-High    ███ 21%
-Medium  █████ 29%  
-Low     ██████████ 50%
-```
+**Bugs by Severity:**
+- **High Priority:** 3 bugs (Critical security and API issues)
+- **Medium Priority:** 3 bugs (Business logic and validation issues)
+- **Additional bugs:** 8+ (Lower priority findings)
 
----
-
-### Distribution by Type
-
-| Bug Type | Count | Percentage | Examples |
-|----------|-------|------------|----------|
-| **API Issues** | 6 | 43% | Error handling, validation, endpoints |
-| **Security** | 3 | 21% | Session management, API key patterns |
-| **Frontend** | 3 | 21% | UI/UX, responsive design, validation |
-| **Business Logic** | 2 | 14% | Account deletion rules, transaction logic |
-
-#### Type Visualization
-```
-API Issues       ████████ 43%
-Security         ████ 21%
-Frontend         ████ 21%
-Business Logic   ██ 14%
-```
-
----
-
-### Distribution by Functional Area
-
-| Area | Bugs Found | Test Cases | Coverage |
-|------|------------|------------|----------|
-| **Authentication & Session** | 3 | 12 | ✅ Critical paths covered |
-| **Bank Accounts** | 4 | 15 | ✅ Full CRUD + edge cases |
-| **Transactions** | 4 | 18 | ✅ Happy path + validation |
-| **API Key Management** | 2 | 8 | ✅ Lifecycle tested |
-| **UI/Responsive Design** | 2 | 5 | ⚠️ Basic coverage |
+**Note:** This portfolio focuses on the most significant and approved bugs. Additional minor issues were also documented and communicated to the team.
 
 ---
 
@@ -75,203 +39,164 @@ Business Logic   ██ 14%
 
 ### API Testing Coverage
 
-| Category | Endpoints | Scenarios | Coverage |
-|----------|-----------|-----------|----------|
-| **Users** | 3 | 8 | 🟢 100% |
-| **Bank Accounts** | 5 | 12 | 🟢 100% |
-| **Transactions** | 3 | 15 | 🟢 100% |
-| **Total** | **11** | **35+** | **🟢 100%** |
+**Complete endpoint coverage across all major API categories:**
+
+| API Category | Endpoints Tested | Coverage |
+|--------------|------------------|----------|
+| **Users** | 3 | 🟢 Complete |
+| **Bank Accounts** | 5 | 🟢 Complete |
+| **Transactions** | 3 | 🟢 Complete |
+| **Total** | **11** | **🟢 100%** |
 
 **Testing Approach:**
 - ✅ Happy path scenarios
-- ✅ Authorization testing (valid, invalid, missing, expired, deleted keys)
-- ✅ Boundary value analysis (0, negative, max values)
+- ✅ Authorization testing (valid, invalid, missing, expired, deleted API keys)
+- ✅ Boundary value analysis
 - ✅ Invalid input validation
 - ✅ Error handling verification
+- ✅ Edge case coverage
 
 ---
 
-### Functional Test Coverage
+### Functional Testing
 
-| Feature Area | Test Cases | Executed | Pass | Fail | Coverage |
-|--------------|------------|----------|------|------|----------|
-| User Registration | 8 | 8 | 6 | 2 | 🟢 100% |
-| User Login/Logout | 6 | 6 | 4 | 2 | 🟢 100% |
-| Bank Account CRUD | 15 | 15 | 12 | 3 | 🟢 100% |
-| Money Transfers | 18 | 18 | 14 | 4 | 🟢 100% |
-| Transaction History | 5 | 5 | 4 | 1 | 🟢 100% |
-| Profile Management | 3 | 3 | 2 | 1 | 🟢 100% |
-| **Total** | **55** | **55** | **42** | **13** | **🟢 100%** |
+**Comprehensive test case documentation covering:**
 
-**Pass Rate:** 76% (42 passed / 55 executed)
+- **User Registration & Authentication** - Account creation, login, logout flows
+- **Bank Account Management** - CRUD operations, validation, lifecycle
+- **Money Transfers** - Transaction creation, validation, history
+- **API Key Management** - Generation, usage, security
+- **Profile Management** - User data, avatar, settings
+- **UI/Responsive Design** - Cross-browser, mobile compatibility
+
+**Total Test Cases:** 50+ documented and executed
 
 ---
 
 ## 🔍 Testing Techniques Applied
 
-| Technique | Usage | Bugs Found | Effectiveness |
-|-----------|-------|------------|---------------|
-| **Exploratory Testing** | High | 5 | ⭐⭐⭐⭐⭐ Critical bugs discovered |
-| **Boundary Value Analysis** | Medium | 3 | ⭐⭐⭐⭐ Edge case validation |
-| **Equivalence Partitioning** | High | 2 | ⭐⭐⭐ Efficient test coverage |
-| **Negative Testing** | High | 4 | ⭐⭐⭐⭐ Error handling issues |
-| **Security Testing** | Medium | 3 | ⭐⭐⭐⭐⭐ High-impact findings |
-| **Data-Driven Testing** | High | 2 | ⭐⭐⭐⭐ API validation |
+Multiple systematic testing techniques were employed to ensure comprehensive coverage:
+
+| Technique | Application | Key Discoveries |
+|-----------|-------------|-----------------|
+| **Exploratory Testing** | Session management, UI flows | Critical session bug, UX issues |
+| **Boundary Value Analysis** | Amount validation, input limits | Edge case bugs, validation gaps |
+| **Equivalence Partitioning** | API key states, user inputs | Authorization issues |
+| **Negative Testing** | Invalid inputs, error scenarios | Error handling bugs |
+| **Security Testing** | Authentication, session, API keys | Multiple security vulnerabilities |
+| **Data-Driven Testing** | CSV-based API scenarios | Systematic API validation |
 
 ---
 
-## 📈 Quality Trends
+## 📊 Test Data 
 
-### Bug Discovery Timeline
+### CSV Test Scenarios
 
-| Month | Bugs Found | Severity High | Severity Medium | Severity Low |
-|-------|------------|---------------|-----------------|--------------|
-| **July 2025** | 6 | 2 | 1 | 3 |
-| **August 2025** | 5 | 1 | 2 | 2 |
-| **September 2025** | 3 | 0 | 1 | 2 |
-| **Total** | **14** | **3** | **4** | **7** |
+Systematic data-driven testing approach using CSV files for repeatable API testing:
 
-**Trend Analysis:**
-- 📉 Bug discovery rate decreased over time (expected as major issues were found early)
-- 🔴 Critical issues found in early testing phases
-- 🟢 Later testing focused on edge cases and refinements
+| File | Scenarios | Purpose |
+|------|-----------|---------|
+| `transactions_scenarios.csv` | 6 | Transaction ID validation + authorization |
+| `transaction_flow_scenarios.csv` | 12 | E2E transaction testing + validation |
+| `user_auth_scenarios.csv` | 12 | Authentication state testing |
+| **Total** | **30** | **Data-driven API testing** |
 
----
-
-### Testing Effort Distribution
-
-```
-Exploratory Testing     ████████████ 35%
-API Testing             ███████████ 30%
-Functional Testing      ████████ 20%
-Regression Testing      ████ 10%
-Documentation          ██ 5%
-```
-
-| Activity | Time Spent | Percentage |
-|----------|------------|------------|
-| Exploratory Testing | ~35 hours | 35% |
-| API Testing (Postman) | ~30 hours | 30% |
-| Functional Testing | ~20 hours | 20% |
-| Regression Testing | ~10 hours | 10% |
-| Documentation | ~5 hours | 5% |
-| **Total** | **~100 hours** | **100%** |
+Each scenario includes:
+- Test scenario name
+- Input parameters (API keys, IDs, amounts)
+- Expected HTTP status codes
+- Authorization state variations
 
 ---
 
-## 🎯 Test Environment Coverage
+### Postman Collection
+
+**Professional API testing framework:**
+
+- **15 organized API requests** covering all endpoints
+- **4 logical folders:** Users, Bank Accounts, Transactions, About
+- **Reusable structure** for regression testing
+- **Environment variables** for flexible testing
+- **Downloadable collection** for team collaboration
+
+The Postman collection serves as both a testing tool and API documentation, providing clear examples of request/response patterns.
+
+---
+
+## 🎯 Test Environment
 
 ### Browser Compatibility
 
-| Browser | Version | Tests Run | Issues Found |
-|---------|---------|-----------|--------------|
-| Chrome | Latest | 55 | 2 (UI rendering) |
-| Safari | Latest | 55 | 3 (UI + session handling) |
+Testing was conducted across multiple browsers to ensure consistent behavior:
 
-### Device Coverage
+| Browser | Platform | Coverage |
+|---------|----------|----------|
+| **Chrome** | macOS | Primary testing browser |
+| **Safari** | macOS | Cross-browser validation |
 
-| Device Type | Tests Run | Responsive Issues |
-|-------------|-----------|-------------------|
-| Desktop (1920x1080) | 55 | 0 |
-| Mobile (iPhone) | 25 | 1 (balance overlap) |
+**Findings:**
+- UI rendering differences identified
+- Session handling variations discovered
+- Responsive design issues on mobile Safari
+
+### Device Testing
+
+| Device Type | Testing Focus |
+|-------------|---------------|
+| **Desktop** | Full functionality, primary use case |
+| **Mobile (iPhone)** | Responsive design, touch interactions |
 
 ---
 
 ## 💡 Key Insights
 
-### Most Productive Testing Techniques
-1. **Exploratory Testing** - Discovered the critical session invalidation bug
-2. **Systematic API Authentication Testing** - Found multiple authorization issues
-3. **Pattern Recognition** - Identified security vulnerability in API key generation
+### Most Effective Testing Approaches
+
+1. **Exploratory Testing**
+   - Discovered the critical session invalidation vulnerability
+   - Revealed unexpected behavior through guided exploration
+   - Uncovered UX issues not covered by formal test cases
+
+2. **Systematic API Authentication Testing**
+   - Testing all authentication states (valid, missing, invalid, expired, deleted)
+   - Found multiple authorization gaps and error handling issues
+   - Revealed inconsistent API responses
+
+3. **Pattern Recognition**
+   - Identified predictable API key generation pattern
+   - Discovered security vulnerability through observation
+   - Highlighted need for cryptographic randomness
 
 ### High-Risk Areas Identified
-1. **Session Management** - Critical vulnerability found
-2. **API Error Handling** - Inconsistent responses
+
+Based on bug discoveries, these areas require additional attention:
+
+1. **Session Management** - Critical security vulnerability found
+2. **API Error Handling** - Inconsistent responses across endpoints
 3. **Security Patterns** - Predictable key generation
+4. **Input Validation** - Edge cases not properly handled
+5. **Mobile Responsiveness** - UI overlap issues
 
 ### Areas of Excellence
-1. **CRUD Operations** - Bank accounts and transactions work reliably
-2. **Basic UI Functionality** - Core features stable
-3. **API Pagination** - Properly implemented
 
----
+The application demonstrated strength in:
 
-## 📊 Test Data Statistics
-
-### CSV Test Scenarios
-
-| File | Scenarios | Purpose |
-|------|-----------|---------|
-| `transactions_scenarios.csv` | 6 | Transaction ID validation + auth |
-| `transaction_flow_scenarios.csv` | 11 | E2E transaction testing + validation |
-| `bank_account_flow_scenarios.csv` | 2 | Account lifecycle testing |
-| `user_auth_scenarios.csv` | 12 | Authentication state testing |
-| **Total** | **31** | **Data-driven API testing** |
-
-### Postman Collection Statistics
-
-- **Total Requests:** 14
-- **Test Scripts:** 30+
-- **Automated Assertions:** 50+
-- **Environment Variables:** 5
+1. **Core CRUD Operations** - Bank accounts and transactions work reliably
+2. **Basic UI Functionality** - Main user flows are stable
+3. **API Pagination** - Properly implemented across list endpoints
+4. **Data Persistence** - Transaction history accurately maintained
 
 ---
 
 ## 🏆 Testing Achievements
 
-✅ **3 critical security findings** - High business impact  
-✅ **Full API endpoint coverage** - All 11 endpoints tested  
-✅ **Data-driven approach** - 31 CSV test scenarios  
-✅ **Comprehensive documentation** - Every bug properly documented with reproduction steps  
-✅ **Cross-browser testing** - Chrome and Safari coverage  
-
----
-
-## 🔮 Recommendations for Future Testing
-
-Based on metrics and findings:
-
-1. **Increase Security Testing**
-   - More focus on authentication mechanisms
-   - Penetration testing for API endpoints
-   - Session management audit
-
-2. **Expand Mobile Testing**
-   - Dedicated mobile device testing
-   - Responsive design validation
-   - Touch gesture testing
-
-3. **Performance Testing**
-   - Load testing for transaction endpoints
-   - API response time monitoring
-   - Database query optimization validation
-
-4. **Automation Coverage**
-   - Implement automated regression suite
-   - CI/CD integration for API tests
-   - Automated smoke tests
-
-5. **Edge Case Coverage**
-   - More boundary value scenarios
-   - Concurrent user testing
-   - Data integrity validation
-
----
-
-## 📝 Methodology Notes
-
-### Test Case Design Approach
-- **Risk-based prioritization** - High-risk features tested first
-- **Requirement coverage** - All functional requirements validated
-- **Exploratory sessions** - 2-hour time-boxed sessions for discovery
-- **Regression coverage** - Core functionality retested after each bug fix
-
-### Bug Reporting Standards
-- **Detailed reproduction steps** - Every bug includes step-by-step reproduction
-- **Screenshots/evidence** - Visual proof provided when applicable
-- **Expected vs actual behavior** - Clear comparison documented
-- **Business impact** - Why the bug matters explained
-- **Priority recommendation** - Suggested severity and priority
+✅ **Comprehensive API coverage** - All 11 endpoints systematically tested  
+✅ **Critical bug discoveries** - 3 high-priority security and functionality issues  
+✅ **Data-driven approach** - 30 CSV test scenarios for repeatable testing  
+✅ **Professional documentation** - Every bug with detailed reproduction steps  
+✅ **Cross-browser validation** - Chrome and Safari compatibility verified  
+✅ **Security focus** - Multiple security vulnerabilities identified  
+✅ **Team collaboration** - All findings approved and communicated via JIRA  
 
 ---
 
@@ -279,7 +204,7 @@ Based on metrics and findings:
 
 - [Bug Reports](../bug-reports/) - Detailed bug documentation organized by severity
 - [Test Cases](../test-cases/) - Complete test case repository
-- [API Testing](../api-testing/) - API testing framework and scenarios
+- [API Testing](../api-testing/) - API testing framework, Postman collection, and CSV scenarios
 - [Case Studies](../case-studies/) - In-depth analysis of significant findings
 
 ---
@@ -287,6 +212,7 @@ Based on metrics and findings:
 ## 📧 Questions or Feedback?
 
 For questions about these metrics or testing methodology:
+
 - **Email:** iveta.charvatova@gmail.com
 - **LinkedIn:** [linkedin.com/in/iveta-kuklová](https://www.linkedin.com/in/iveta-kuklová)
 - **GitHub:** [github.com/IvetK](https://github.com/IvetK)
