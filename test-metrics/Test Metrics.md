@@ -19,7 +19,9 @@ Quantitative analysis of CzechiBank testing project (July - September 2025).
 | **Postman Requests** | 15 |
 | **Testing Duration** | 12 weeks |
 | **Browsers Tested** | Chrome, Safari |
+
 **Note:** Test cases were made in collaboration with other QA tester in the team.
+
 ---
 
 ## Bugs by Severity
