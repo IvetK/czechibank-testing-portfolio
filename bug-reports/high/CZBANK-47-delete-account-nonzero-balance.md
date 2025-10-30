@@ -120,25 +120,6 @@ Headers:
 
 ---
 
-## 💥 Impact
-
-- **Business Logic Violation:** Contradicts documented API behavior
-- **Data Integrity:** Account balance is lost without proper handling
-- **User Experience:** Unexpected behavior, potential accidental fund loss
-
----
-
-## 🔧 Suggested Fix
-
-Add balance validation in the DELETE endpoint:
-
-1. Check if `account.balance !== 0` before deletion
-2. If balance is non-zero, return `400` or `422` error with descriptive message
-3. Only allow deletion when `balance === 0`
-4. Update API response to include current balance in error message
-
----
-
 ## 📎 Additional Notes
 
 **Discovery Method:** Systematic API endpoint testing  
