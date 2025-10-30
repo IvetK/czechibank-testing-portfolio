@@ -2,159 +2,114 @@
 
 **Priority:** Medium  
 **Severity:** Medium  
-**Status:** Ready to DEV  
+**Status:** ✅ Resolved  
 **Reporter:** Iveta Kuklová  
 **Date Reported:** July 2025  
-**Environment:** Development  
+**Resolution Date:** August/September 2025
 
 ---
 
 ## 📋 Summary
 
-API accepts transaction requests with currency parameters (CZK, USD) that are not officially supported according to API documentation. The system processes these transactions as CZECHITOKEN without validation, conversion, or error messages, creating inconsistency between API documentation, implementation, and frontend behavior.
+API accepted transaction requests with currency parameters (CZK, USD) that were not officially supported according to API documentation. The system processed these transactions as CZECHITOKEN without validation, conversion, or error messages, creating inconsistency between documentation, implementation, and frontend behavior.
 
----
-
-## 🔍 Description
-
-### Issue Details
-
-While testing the transactions API in Postman, I discovered a discrepancy between:
-
-**API Documentation states:**
-- Only supported currency: **CZECHITOKEN**
-
-**API actually accepts:**
-- CZECHITOKEN ✅
-- CZK ✅ (works but undocumented)
-- USD ✅ (works but undocumented)
-
-**Frontend allows:**
-- Only CZECHITOKEN
-
-**What happens:**
-Regardless of which currency is sent via API (CZK, USD), the transaction is processed and credited to the recipient account as CZECHITOKEN with **no currency conversion** applied. The system accepts the amount at face value (e.g., 100 EUR becomes 100 CZECHITOKEN).
-
-### Why This Matters
-
-**Inconsistency Issues:**
-1. API documentation doesn't match implementation
-2. Backend accepts currencies that shouldn't be supported
-3. No validation or error handling for unsupported currencies
-4. Frontend and backend have different behavior
-
-**Data Integrity:**
-- Transactions created with wrong currency labels
-- No conversion rates applied
-- Could cause confusion in transaction history
-- Financial amounts may be incorrect
+**Resolution:** Fixed - API now validates currency and only accepts CZECHITOKEN. Unsupported currencies are rejected with proper error messages.
 
 ---
 
 ## 🌐 Environment
 
-**Testing Environment:**
-- Application: CzechiBank (educational banking application)
-- Environment: Development
-- API Endpoint: `POST /api/v1/transactions/create`
-- Testing Tool: Postman
-- Date: July 2025
-
-**Documentation Reference:**
-- API Documentation: `https://[dev-environment]/api/v1/docs/page`
-- Stated supported currency: CZECHITOKEN only
+- **Application:** CzechiBank (Development)
+- **Endpoint:** `POST /api/v1/transactions/create`
+- **Testing Tool:** Postman
+- **Date Discovered:** July 2025
+- **API Documentation:** `https://[dev-environment]/api/v1/docs/page`
 
 ---
 
-## 📝 Steps to Reproduce
+## 🔍 Description
+
+### Original Issue
+
+While testing the transactions API in Postman, I discovered inconsistency between documentation, implementation, and frontend:
+
+**API Documentation:** Only CZECHITOKEN supported  
+**API Actually Accepted:** CZECHITOKEN, CZK, USD 
+**Frontend Allowed:** Only CZECHITOKEN  
+
+**What Was Happening:**
+Regardless of which currency was sent via API (CZK, USD), the transaction was processed and credited as CZECHITOKEN with **no currency conversion**. The system accepted the amount at face value (e.g., 100 USD became 100 CZECHITOKEN).
+
+**Issues:**
+- API documentation didn't match implementation
+- No validation for unsupported currencies
+- Frontend and backend had different behavior
+- Transactions created with incorrect currency labels
+
+---
+
+## 📝 Steps to Reproduce (Original Bug)
 
 ### Prerequisites
-1. Access to Postman
-2. Valid API key
-3. Two bank accounts (sender and receiver)
-4. Access to API documentation
+- Access to Postman
+- Valid API key
+- Two bank accounts (sender and receiver)
 
-### Test 1: Verify Documentation
+### Steps
 
+**Test 1: Verify Documentation**
 1. Open API documentation
-2. Navigate to `POST /transactions/create` endpoint
-3. Check supported currencies
-4. **Documented:** Only CZECHITOKEN
+2. Check `POST /transactions/create` endpoint
+3. **Documented:** Only CZECHITOKEN supported
 
-### Test 2: Test with CZECHITOKEN (Expected)
-
-**Postman Request:**
+**Test 2: Test with CZECHITOKEN (Expected Behavior)**
 ```
 POST https://[dev-environment]/api/v1/transactions/create
-
-Headers:
-  x-api-key: [valid-api-key]
-
-Body:
-{
+Headers: x-api-key: [valid-api-key]
+Body: {
   "toBankNumber": "123456789012/5555",
   "amount": 100,
   "currency": "CZECHITOKEN"
 }
+Result: 201 Created ✅ (expected)
 ```
 
-**Result:** 
-- Response: `201 Created` ✅
-- Transaction processed successfully ✅
-- Expected behavior ✅
-
-### Test 3: Test with CZK (Undocumented)
-
-**Postman Request:**
+**Test 3: Test with CZK (Should Have Rejected)**
 ```
-POST https://[dev-environment]/api/v1/transactions/create
-
-Headers:
-  x-api-key: [valid-api-key]
-
-Body:
-{
+POST /transactions/create
+Body: {
   "toBankNumber": "123456789012/5555",
   "amount": 100,
   "currency": "CZK"
 }
+Expected: 400 Bad Request - "Unsupported currency"
+Actual (Original Bug): 201 Created ⚠️ - Transaction successful!
 ```
 
-**Expected:** `400 Bad Request` - "Unsupported currency: CZK"  
-**Actual:** `201 Created` ⚠️ - Transaction successful!
-
-**What happens:**
+**What Happened:**
 - Transaction created with "CZK" label
-- Recipient receives 100 CZECHITOKEN (not CZK!)
+- Recipient received 100 CZECHITOKEN (not CZK)
 - No conversion rate applied
 - No error or warning
 
-### Test 4: Test with USD 
+**Test 4: Test with USD**
+Same result - API accepted USD and processed as CZECHITOKEN.
 
-Same result - API accepts USD and processes as CZECHITOKEN.
-
-### Test 5: Frontend Comparison
-
-1. Open web application
-2. Navigate to money transfer
-3. Attempt to specify currency
-4. **Observation:** Frontend only allows CZECHITOKEN
-5. No option to select CZK, or USD
-
-**Conclusion:** Frontend and API have different validation rules.
+**Test 5: Frontend Comparison**
+- Frontend only allowed CZECHITOKEN selection
+- **Conclusion:** Frontend and API had different validation rules
 
 ---
 
 ## 🎯 Expected Behavior
 
-**Since API documentation states only CZECHITOKEN is supported:**
-
-### Option 1: Strict Validation (Recommended by Developer)
+Since API documentation stated only CZECHITOKEN is supported:
 
 **API should reject unsupported currencies:**
+
 ```json
 POST /transactions/create
-Body: { "currency": "CZK", ... }
+Body: { "currency": "CZK", "amount": 100, ... }
 
 Response: 400 Bad Request
 {
@@ -172,232 +127,129 @@ Response: 400 Bad Request
 - Reject: CZK, USD, or any other currency ❌
 - Return clear error message
 
-### Option 2: Update Documentation
-
-If multiple currencies ARE supported:
-- Update API documentation to list all supported currencies
-- Implement proper currency conversion logic
-- Add conversion rates
-- Store and display transactions with correct currencies
-
-**Developer decision:** Wanted **Option 1** - single currency only.
-
 ---
 
-## 🐛 Actual Behavior
+## 🐛 Actual Behavior (Original)
 
-**Current System:**
-
-1. **API accepts any currency** parameter without validation
-2. **Treats all currencies as CZECHITOKEN** (1:1, no conversion)
-3. **No error messages** for unsupported currencies
-4. **Inconsistent with documentation** (says only CZECHITOKEN)
+**Before fix:**
+1. API accepted any currency parameter without validation
+2. Treated all currencies as CZECHITOKEN (1:1, no conversion)
+3. No error messages for unsupported currencies
+4. Inconsistent with documentation
 
 **Example Issue:**
 ```
-User sends via API:
-  100 EUR to Account A
+User sent via API: 100 USD
+System processed: 100 CZECHITOKEN
+```
 
-System processes:
-  100 CZECHITOKEN to Account A
-  
-Actual value:
-  EUR exchange rate ~23 CZK = 2,300 CZK worth
-  But user only transferred 100 tokens
-  
-Result: Massive discrepancy if currencies were real!
+### Test Results Matrix (Original Bug)
+
+| Currency Sent | Expected | Actual (Before Fix) |
+|---------------|----------|---------------------|
+| CZECHITOKEN | 201 ✅ | 201 ✅ |
+| CZK | 400 ❌ | 201 ⚠️ (Accepted) |
+| USD | 400 ❌ | 201 ⚠️ (Accepted) |
+
+---
+
+## ✅ Resolution & Fix
+
+### What Was Implemented
+
+The development team implemented strict currency validation:
+
+**1. Currency Validation Added** ✅
+- API now validates currency parameter
+- Only CZECHITOKEN is accepted
+- Unsupported currencies are rejected with 400 Bad Request
+
+**2. Error Messages Improved** ✅
+- Clear error message when unsupported currency provided
+- Specifies which currency was provided and what is expected
+
+**3. Consistent Behavior** ✅
+- API and frontend now enforce same validation rules
+- Documentation matches implementation
+- No more inconsistency
+
+**After Fix:**
+```
+Request with CZK:
+  → 400 Bad Request
+  → Error: "Only CZECHITOKEN is supported"
+
+Request with CZECHITOKEN:
+  → 201 Created
+  → Transaction successful
 ```
 
 ---
 
-## 💥 Impact Assessment
+## 🧪 Verification Testing
 
-### Severity: MEDIUM
+Retested after fix was deployed:
 
-**Data Integrity Impact:**
-- Transactions stored with incorrect currency labels
-- Could cause confusion in financial reports
-- Transaction history shows wrong currency
-
-**Business Logic Impact:**
-- No validation of business rules (single currency)
-- Backend allows behavior that frontend prevents
-- Inconsistent user experience (API vs UI)
-
-**Documentation Gap:**
-- API behavior doesn't match documentation
-- Developers using API might make incorrect assumptions
-- Could lead to integration issues
-
-### Affected Users
-
-**Low Impact** (because educational project):
-- In educational context, doesn't affect real money
-- But demonstrates important validation gap
-
-**Would be HIGH Impact** in production:
-- Real banking app: Could cause financial losses
-- Currency conversion errors
-- Regulatory compliance issues
-
----
-
-## 🔧 Suggested Fix
-
-### Recommended Solution (Per Developer Preference)
-
-**Implement strict currency validation:**
-
-1. **Backend Validation:**
+**Test 1: CZECHITOKEN (Should Work)**
 ```
-   If currency parameter provided:
-     If currency != "CZECHITOKEN":
-       Return 400 Bad Request
-       Error: "Only CZECHITOKEN is supported"
-   
-   If currency parameter missing:
-     Default to CZECHITOKEN
+POST /transactions/create
+Body: { "currency": "CZECHITOKEN", "amount": 100, ... }
+Result: ✅ 201 Created - Transaction successful
+Status: PASS
 ```
 
-2. **Remove Currency Field:**
-   - Remove currency parameter from API endpoint
-   - Always use CZECHITOKEN implicitly
-   - Update API schema/documentation
+**Test 2: CZK (Should Reject)**
+```
+POST /transactions/create
+Body: { "currency": "CZK", "amount": 100, ... }
+Result: ✅ 400 Bad Request - "Unsupported currency"
+Status: PASS
+```
 
-3. **Consistent Behavior:**
-   - API and frontend enforce same rules
-   - Clear error messages for unsupported values
-   - Documentation matches implementation
+**Test 3: USD (Should Reject)**
+```
+POST /transactions/create
+Body: { "currency": "USD", "amount": 100, ... }
+Result: ✅ 400 Bad Request - "Unsupported currency"
+Status: PASS
+```
 
----
+**Test 4: Missing Currency (Should Default)**
+```
+POST /transactions/create
+Body: { "amount": 100, ... }  // no currency field
+Result: ✅ 201 Created - Defaults to CZECHITOKEN
+Status: PASS
+```
 
-## 📊 Testing Evidence
+**Test 5: Invalid Currency (Should Reject)**
+```
+POST /transactions/create
+Body: { "currency": "INVALID", "amount": 100, ... }
+Result: ✅ 400 Bad Request
+Status: PASS
+```
 
-### Test Matrix
-
-| Currency Sent | Expected Response | Actual Response | Issue |
-|---------------|-------------------|-----------------|-------|
-| CZECHITOKEN | 201 Created ✅ | 201 Created ✅ | Works correctly |
-| CZK | 400 Bad Request | 201 Created ⚠️ | Accepts undocumented currency |
-| USD | 400 Bad Request | 201 Created ⚠️ | Accepts undocumented currency |
-
-### Postman Test Results
-
-**Test Collection Results:**
-- CZECHITOKEN: ✅ Pass
-- CZK: ❌ Fail (should reject, but accepts)
-- USD: ❌ Fail (should reject, but accepts)
-
-**Frontend Comparison:**
-- Frontend: Only CZECHITOKEN selectable ✅
-- API: Accepts multiple currencies ❌
----
-
-## 💬 Communication History
-
-**Initial Report:**
-> "API documentation states only CZECHITOKEN is supported, but API actually accepts CZK and USD without validation. These transactions are processed as CZECHITOKEN with no conversion rate. Frontend only allows CZECHITOKEN. This creates inconsistency between documentation, backend, and frontend."
-
-**Developer Response:**
-> "We want to support only one currency (CZECHITOKEN). API should validate and reject other currencies."
-
-**Recommended Action:**
-> "Add validation to reject non-CZECHITOKEN currencies with clear error message. Update API schema to reflect single currency support."
+**Verification Result:** ✅ **BUG RESOLVED** - All test cases pass
 
 ---
 
 ## 🔗 Related Issues
 
-**Documentation Gaps:**
-- CZBANK-40: API Documentation inconsistencies
-- CZBANK-41: Bank account creation allows currency selection (related issue)
+**CZBANK-40:** API Documentation inconsistencies  
+**CZBANK-41:** Bank account creation - duplicate names (also resolved)
 
 ---
 
-## ✅ Verification Steps
+## 📎 Additional Notes
 
-After fix is implemented:
-
-**Test 1: CZECHITOKEN (should work)**
-```
-POST /transactions/create
-Body: { "currency": "CZECHITOKEN", "amount": 100, ... }
-Expected: 201 Created ✅
-```
-
-**Test 2: CZK (should fail)**
-```
-POST /transactions/create
-Body: { "currency": "CZK", "amount": 100, ... }
-Expected: 400 Bad Request ✅
-Error message: "Only CZECHITOKEN is supported"
-```
-
-**Test 3: Missing currency (should default)**
-```
-POST /transactions/create
-Body: { "amount": 100, ... }  // no currency field
-Expected: 201 Created, defaults to CZECHITOKEN ✅
-```
-
-**Test 4: Invalid currency (should fail)**
-```
-POST /transactions/create
-Body: { "currency": "INVALID", "amount": 100, ... }
-Expected: 400 Bad Request ✅
-```
+**Discovery Method:** API testing with equivalence partitioning (valid vs invalid currency values)  
+**Frontend vs Backend Testing:** Revealed inconsistency between UI and API validation  
+**Developer Decision:** Single currency (CZECHITOKEN) only, strict validation implemented
 
 ---
 
-## 🎓 Lessons Learned
-
-### What This Bug Taught Me
-
-**1. Always Compare Documentation vs. Implementation**
-- Documentation said one thing (CZECHITOKEN only)
-- Implementation did another (accepted multiple currencies)
-- Testing revealed the gap
-
-**2. Test Beyond Happy Path**
-- Happy path: CZECHITOKEN works ✅
-- Edge cases: What about other currencies? ⚠️
-- Found the validation gap
-
-**3. Frontend vs. Backend Testing**
-- Frontend enforces one rule (CZECHITOKEN only)
-- Backend enforces different rule
-- API testing revealed backend weakness
-
-**4. Equivalence Partitioning**
-- Valid class: CZECHITOKEN
-- Invalid classes: CZK, USD, random strings
-- Testing invalid classes found the bug
-
-**5. Clear Communication with Developers**
-- Presented findings objectively
-- Asked for clarification on intended behavior
-- Developer confirmed: single currency intended
-- Clear fix direction established
-
-### Testing Technique Applied
-
-**Negative Testing:**
-- Didn't just test valid inputs
-- Tested unsupported values
-- Found that validation was missing
-
-**API vs UI Testing:**
-- Compared frontend and backend behavior
-- Identified inconsistency
-- This is why API testing complements UI testing
-
----
-
-## 🏷️ Labels
-
-`api` `validation` `currency` `data-integrity` `documentation-gap` `backend` `postman-testing`
-
----
-
-*Bug report created: July 2025*  
-*Last updated: October 2025*
+*Bug reported: July 2025*  
+*Bug fixed: August/September 2025*  
+*Verification completed: September 2025*  
+*Status: ✅ Resolved*
