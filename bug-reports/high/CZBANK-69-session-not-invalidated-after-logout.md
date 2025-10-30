@@ -124,15 +124,6 @@ Transaction created ❌ (should fail with 401!)
 
 ---
 
-## 💥 Impact
-
-- **Critical Security Issue:** Financial operations possible without valid authentication
-- **Session Management Failure:** Backend does not validate user session state
-- **Authorization Bypass:** User identity not verified before transaction processing
-- **Trust Impact:** Users expect logout to immediately prevent all account access
-
----
-
 ## 🔗 Related Issues
 
 **CZBANK-71:** API returns 500 instead of 401 with deleted API key (also missing auth validation)
