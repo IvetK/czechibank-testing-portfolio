@@ -75,7 +75,7 @@ Each row represents one automated test case.
 3. **transactions_idbankaccounts_id_scenarios.csv** (12 scenarios)  
    Tests: Reusable scenarios across multiple endpoints
 
-**Total coverage:** 30+ automated test scenarios
+**Total coverage:** 29 automated test scenarios
 
 ---
 
