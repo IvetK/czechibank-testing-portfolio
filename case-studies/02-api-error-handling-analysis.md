@@ -85,9 +85,9 @@ I tested this scenario across multiple endpoints to determine scope:
 ---
 ## 🔧 Recommended Fix
 
-**Backend Solution: Add proper error handling for deleted/invalid API keys
+Backend Solution: Add proper error handling for deleted/invalid API keys
 
-**Improved Error Messages: Instead of generic "Internal server error", return informative auth error i.e."API key has been deleted. Please generate a new API key."
+Improved Error Messages: Instead of generic "Internal server error", return informative auth error i.e."API key has been deleted. Please generate a new API key."
 
 ---
 **Related:** [Full Bug Report CZBANK-71](../bug-reports/high/CZBANK-71_API_Error_Handling.md)
