@@ -15,21 +15,20 @@
 | Category | Endpoint | Test Cases | Tester |
 |----------|----------|------------|--------|
 | **About** | GET /about | 1 | DD |
-| **Users** | POST /user/create | 9 | IK |
+| **Users** | POST /user/create | 8 | IK |
 | | GET /user | 5 | IK |
-| **API Keys** | GET /apikey | 7 | IK |
+| **API Keys** | GET /apikey | 5 | IK |
 | **Bank Accounts** | GET /bank-account/{id} | 4 | DD |
 | | DELETE /bank-account/{id} | 3 | DD |
 | | POST /bank-account/create | 5 | DD |
 | | GET /bank-account/get-all | 5 | DD |
 | | GET /bank-account | 5 | DD |
 | **Transactions** | GET /transactions/{id} | 6 | IK |
-| | POST /transactions/create | 17 | IK |
-| | GET /transactions | 16 | IK |
-| **TOTAL** | **12 endpoints** | **84** | **IK: 43, DD: 41** |
+| | POST /transactions/create | 13 | IK |
+| | GET /transactions | 7 | IK |
+| **TOTAL** | **12 endpoints** | **67** |
 
 **Test Data:** Detailed test data sets available in `/test-data/` folder  
-**Testing Period:** June - October 2025
 
 ---
 
@@ -224,19 +223,23 @@
 
 ## 📈 Testing Methodology
 
-### Test Approach
+**Approaches Used:**
 - **Systematic Coverage:** Each endpoint tested for happy path, authentication, validation, and error handling
-- **Data-Driven Testing:** CSV files with test scenarios for comprehensive coverage
-- **Boundary Value Analysis:** Testing edge cases (min/max amounts, invalid formats)
-- **Equivalence Partitioning:** Grouping similar test scenarios for efficient coverage
-- **Security Focus:** Extensive authentication and authorization testing
+- **Data-Driven Testing:** CSV files with test scenarios for repeatable execution
+- **Input Validation Testing:** Testing data types, required fields, format requirements, and minimum values
+- **Business Logic Validation:** Verifying business rules (sufficient balance, valid accounts, authorization)
+- **Security Focus:** Comprehensive authentication testing across all endpoints (expired, deleted, missing, invalid API keys)
 
-### Test Data Organization
-Detailed test scenarios with specific test data are maintained in CSV files:
-- `transactions_id_scenarios.csv` - GET /transactions/{id} test data
-- `Transaction_Flow_POSTGETDEL.csv` - POST /transactions/create test flows
-- `GETuser_transactions_bank_accounts.csv` - GET /transactions test data
-- `transactions_idbankaccounts_id_scenarios.csv` - Cross-endpoint authentication tests
+## 🗂️ Test Data
+
+Detailed test scenarios with specific test data are available in CSV files:
+
+**Location:** `/test-data/` folder
+
+**Files:**
+- `Transaction_Flow_POSTGETDEL.csv` - POST /transactions/create validation tests
+- `transactions_idbankaccounts_id_scenarios.csv` - Cross-endpoint authentication testing
+- `GET__Apikey_User_Bank_Account_Scenarios.csv` - Multi-endpoint authentication (apikey, user, bank-account)
 
 ---
 
@@ -260,6 +263,4 @@ Detailed test scenarios with specific test data are maintained in CSV files:
 - **Coverage:** 67 test cases across 12 API endpoints
 
 ---
-
 *Last Updated: November 2025*  
-*Project: CzechiBank Testing Portfolio*
