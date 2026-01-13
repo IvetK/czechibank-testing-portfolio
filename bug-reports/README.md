@@ -28,8 +28,6 @@ Users could perform transactions after logout using browser back button. Session
 **Discovery:** Exploratory testing with browser navigation  
 **Business Impact:** Unauthorized access to banking functions
 
-📄 [Full report](critical/CZBANK-69_Session_Invalidation.md)
-
 ---
 
 ### 🔴 [CZBANK-71] API Returns 500 Instead of 401
@@ -40,8 +38,6 @@ Deleted API keys cause `500 Internal Server Error` instead of proper `401 Unauth
 **Discovery:** Systematic API key lifecycle testing  
 **Technical Impact:** Misleading errors, harder debugging, violates REST best practices
 
-📄 [Full report](high/CZBANK-71_API_Error_Handling.md)
-
 ---
 
 ### 🟡 [CZBANK-47] Delete Account with Non-Zero Balance
@@ -51,8 +47,6 @@ Bank account deletion succeeds even when balance ≠ 0, contradicting API docume
 
 **Discovery:** Testing against documented business rules  
 **Developer Feedback:** *"Bug approved. This is bug in application, we should fix it."*
-
-📄 [Full report](medium/CZBANK-47_Delete_Account_Business_Logic.md)
 
 ---
 
@@ -67,8 +61,6 @@ API Key:  cmcp5mk9i00015u8kmu7rt188
 ```
 
 **Discovery:** Pattern recognition across 6+ registrations
-
-📄 [Full report](medium/CZBANK-57_API_Key_Security_Pattern.md)
 
 ---
 
