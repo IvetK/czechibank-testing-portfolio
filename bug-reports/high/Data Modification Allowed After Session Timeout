@@ -1,0 +1,121 @@
+# Data Modification Allowed After Session Timeout
+
+**Priority:** High  
+**Severity:** Critical   
+**Reporter:** Iveta Kuklová  
+**Date Reported:** January 20, 2026  
+**Environment:** Development
+
+---
+
+## Summary
+After automatic session timeout (30 minutes of inactivity), users can still modify data (create/update/delete bank accounts and execute transactions) without valid authentication. Changes are persisted in the database despite the session being expired, creating a severe security vulnerability.
+
+---
+
+## Environment
+- **Application:** CzechiBank (educational banking application)
+- **Browser:** Safari Version 18.6 (18621.3.11.19.1, 18621)
+- **Device:** MacBook Pro
+- **OS:** macOS Ventura 13.7.8
+- **Test Date:** January 20, 2026
+
+---
+
+## Description
+While the automatic session timeout feature correctly expires the user session after 30 minutes of inactivity (indicated by the disappearance of the avatar icon and appearance of "Sign in" button), the application continues to allow data modification operations. These operations are successfully executed and changes are persisted in the database.
+
+### Security Risk
+- Users can modify sensitive financial data without valid authentication
+- Potential for unauthorized transactions after session expiration
+- Database integrity compromised by operations performed with expired sessions
+
+### Affected Features
+1. **Bank Account Management** - Rename, create, and delete accounts
+2. **Transaction Processing** - Execute money transfers
+3. **Profile Page** - View user data and partial API key
+
+### Technical Observations
+**Frontend Session Validation Inconsistency:**
+
+Components that CHECK session validity:
+- Avatar display (correctly hidden after timeout)
+- API key generation (disabled after timeout)
+- Avatar change functionality (disabled after timeout)
+
+Components that DO NOT check session validity:
+- Bank accounts operations (create, update, delete)
+- Transaction execution
+- User data display on Profile page
+
+**Browser DevTools Findings:**
+- After session timeout, session cookie is removed from browser
+- Despite missing session cookie, POST requests for transactions return HTTP 200 OK
+- API accepts and processes requests without valid session validation
+---
+
+## Steps to Reproduce
+
+### Scenario 1: Bank Account Operations After Session Timeout
+
+**Preconditions:**
+- User is logged in with valid credentials
+- User has at least one bank account
+
+**Steps:**
+1. Log in to the application
+2. Navigate to the Bank Accounts page (main dashboard)
+3. Wait 30 minutes without performing any actions
+4. Observe: Avatar icon disappears, "Sign in" button appears (session expired)
+5. Attempt to rename an existing bank account
+6. Attempt to create a new bank account
+7. Attempt to delete an account
+8. Log in again with the same credentials
+9. Verify the changes made in steps 5-7
+
+### Scenario 2: Transaction Execution After Session Timeout
+
+**Preconditions:**
+- User is logged in with valid credentials
+- User has at least one bank account with sufficient balance
+- User knows a valid recipient account number
+
+**Steps:**
+1. Log in to the application
+2. Navigate to the Transactions page by clicking on a bank account
+3. Wait 30 minutes without performing any actions
+4. Observe: Avatar icon disappears, "Sign in" button appears (session expired)
+5. Select a recipient from the dropdown
+6. Enter an amount in the "Amount" field
+7. Click the "Transfer" button
+
+### Scenario 3: Profile Page Access After Session Timeout
+
+**Preconditions:**
+- User is logged in with valid credentials
+
+**Steps:**
+1. Log in to the application
+2. Navigate to Profile page (click avatar/profile icon)
+3. Wait 30 minutes without performing any actions
+4. Observe: Avatar icon disappears, "Sign in" button appears (session expired)
+5. Observe the Profile page content
+6. Click CzechiBank logo
+7. Use browser "Back" button to return to Profile page
+
+---
+
+## Expected vs Actual Behavior
+
+**Expected Behavior:**
+After session timeout, the user should be immediately redirected to the login page across all pages. No data modification operations should be allowed, and any attempts should be rejected with a "Session expired" error message. No user data should remain visible, and no changes should be persisted to the database.
+
+**Actual Behavior:**
+After session timeout, users remain on the current page with data still visible. All data modification operations (creating, renaming, and deleting bank accounts, as well as executing transactions) are successfully processed and persisted to the database. Users receive success confirmations for each operation. On the Profile page, user data and partial API key remain visible, though some functionality (API key generation, avatar change) is correctly disabled. No redirect to login occurs, and no session expiration message is shown.
+
+---
+
+## Related Issues
+This bug appears to be related to previously reported session management issues showing similar patterns of UI state not matching backend validation behavior.
+
+---
