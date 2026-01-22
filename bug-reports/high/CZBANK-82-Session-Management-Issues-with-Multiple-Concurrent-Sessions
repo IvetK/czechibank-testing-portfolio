@@ -1,0 +1,145 @@
+# Session Management Issues with Multiple Concurrent Sessions
+
+**Priority:** Critical  
+**Severity:** Critical  
+**Reporter:** Iveta Kuklová  
+**Date Reported:** January 19, 2026  
+**Environment:** Development
+
+---
+
+## Summary
+When multiple users are logged in simultaneously in different browser windows, the UI displays the first user's avatar while showing the second user's profile data. API keys created while viewing the first user's avatar are saved to the second user's account. Additionally, when the same user is logged in across multiple windows and signs out in one window, the avatar icon remains visible in other windows, allowing access to user name and email information.
+
+---
+
+## Environment
+- **Application:** CzechiBank (educational banking application)
+- **Browser:** Safari Version 18.6 (18621.3.11.19.1, 18621)
+- **Device:** MacBook Pro
+- **OS:** macOS Ventura 13.7.8
+- **Test Date:** January 19, 2026
+
+---
+
+## Description
+The application exhibits critical session management issues when multiple users are logged in concurrently in different browser windows, or when the same user is logged in across multiple windows.
+
+### Primary Issue (Critical Severity)
+When two different users log in sequentially in separate browser windows, the UI in the first window displays the first user's avatar icon, but the profile page shows the second user's data. When the first user creates an API key while viewing this page, the API key is saved to the second user's account instead of the first user's account. If the first user was on the Transfer Money page before the second user logged in, the first user can still execute a transaction, which is recorded in the first user's transaction history, after which the user is redirected to the Sign In page.
+
+### Secondary Issue (High Severity)
+When the same user is logged in across multiple browser windows and signs out in one window, the avatar icon remains visible in the other windows. In these windows, the user cannot change the avatar or create API keys and is redirected to the Sign In page when attempting navigation. However, the avatar icon remains visible in the top right corner, and clicking it still displays the user's name and email. The avatar icon only disappears after clicking Sign Out again or performing a hard refresh.
+
+### Security Risk
+- User A views profile page showing User B's data while seeing their own avatar
+- API keys created by User A are saved to User B's account
+- Unauthorized access to user profile information after logout
+- Session state confusion between multiple concurrent sessions
+- Potential for data attribution errors
+
+### Affected Features
+1. **Multi-user concurrent sessions** - UI displays one user's avatar while showing another user's data
+2. **Profile Page** - Displays wrong user's data, creates API keys for wrong user
+3. **Transaction Processing** - Allows transactions with session confusion before redirect
+4. **Sign Out functionality** - Incomplete avatar removal across windows
+5. **Avatar display** - Persists after logout in other windows
+
+### Technical Observations
+
+**Multi-user Session Behavior:**
+- User A logs in → UI displays User A's avatar
+- User B logs in (different window) → First window still shows User A's avatar but displays User B's profile data
+- API key creation in first window → API key saved to User B's account (not User A as avatar suggests)
+- If User A was on Transfer Money page before User B logged in → User A can execute transaction → Transaction saved to User A's history → User A redirected to Sign In
+
+**Same-user Multi-window Behavior:**
+- User logged in across multiple windows
+- Sign Out in Window 1 → Avatar disappears in Window 1
+- Window 2 → Avatar icon remains visible in top right corner
+- Window 2 → User cannot change avatar or create API key
+- Window 2 → Navigation attempts redirect to Sign In
+- Window 2 → Clicking avatar still displays user name and email
+- Avatar disappears only after: clicking Sign Out again OR hard refresh
+
+**Session State Inconsistency:**
+
+What correctly updates after second user login:
+- Profile data displayed (shows User B's data)
+
+What incorrectly remains from first user:
+- Avatar icon (shows User A's avatar)
+- UI suggests User A is logged in
+
+What has inconsistent attribution:
+- API key creation → Saved to User B's account
+- Transaction execution → Saved to User A's history
+
+**Pattern observed:** UI displays one user's identity (avatar) while operations affect different users' accounts inconsistently
+
+---
+
+## Steps to Reproduce
+
+### Scenario 1: Concurrent Login of Different Users
+
+**Preconditions:**
+- Two different user accounts exist in the system
+- Using two separate browser windows
+
+**Steps:**
+1. Window 1: Log in as User A
+2. Window 2: Log in as User B
+3. Window 1: Navigate to Profile page
+4. Window 1: Observe the avatar icon in top right corner (shows User A)
+5. Window 1: Observe the profile data displayed on the page (shows User B's name and email)
+6. Window 1: Click "Generate new API key" button
+7. Window 2: Navigate to Profile page
+8. Window 2: Check the API Keys list
+9. Window 2: Verify the API key was created for User B's account
+
+**Additional test for transactions:**
+10. Window 1: Navigate to Transfer Money page (before User B logs in)
+11. Window 2: Log in as User B (after User A is on Transfer Money page)
+12. Window 1: Attempt to execute a transaction
+13. Window 1: Observe redirect to Sign In page after transaction
+14. Log in again as User A
+15. Window 1: Check User A's transaction history
+16. Verify the transaction appears in User A's history
+
+### Scenario 2: Same User Logout Across Multiple Windows
+
+**Preconditions:**
+- User is logged into the same account
+- Using two separate browser windows
+
+**Steps:**
+1. Window 1: Log in as User A
+2. Window 2: Log in as same User A (same credentials)
+3. Window 1: Click "Sign Out" button in top right corner
+4. Window 1: Observe avatar icon disappears
+5. Window 2: Observe the top right corner
+6. Window 2: Verify avatar icon is still visible
+7. Window 2: Click on the avatar icon
+8. Window 2: Observe user name and email are displayed
+9. Window 2: Attempt to change avatar (should not work)
+10. Window 2: Attempt to create API key (should not work)
+11. Window 2: Attempt to navigate to another page
+12. Window 2: Observe redirect to Sign In page
+13. Window 2: Perform hard refresh (Cmd+Shift+R)
+14. Window 2: Observe avatar icon now disappears
+
+---
+
+## Expected vs Actual Behavior
+
+**Expected Behavior:**
+When different users log in concurrently in separate windows, each window should maintain its own independent session displaying the correct user's avatar and data, with all operations executed under that user's context. When a user signs out in one window, the logout should be reflected across all windows where that user is logged in - avatar icon should disappear, profile data should not be accessible, and the user should be immediately redirected to the login page in all windows.
+
+**Actual Behavior:**
+When User A logs in followed by User B in a different window, Window 1 displays User A's avatar icon but shows User B's profile data. API keys created while viewing User A's avatar are saved to User B's account. If User A was on the Transfer Money page before User B logged in, User A can still execute a transaction which is saved to User A's transaction history before redirect to Sign In occurs. When the same user signs out in one window, the avatar icon remains visible in other windows. The user cannot change avatar or create API keys, and is redirected to Sign In on navigation attempts, but clicking the avatar still displays the user's name and email. The avatar persists until Sign Out is clicked again or hard refresh is performed.
+
+---
+
+## Related Issues
+This bug appears to be related to previously reported session management issues. The application shows inconsistent session handling across multiple browser contexts and incomplete session termination.
