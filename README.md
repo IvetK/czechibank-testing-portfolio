@@ -110,9 +110,6 @@ In-depth technical analysis of 3 critical findings showcasing problem-solving pr
 ### 🔧 [API Testing](api-testing/)
 Complete API testing framework with Postman collection, CSV test data files, automated assertions, and endpoint coverage matrix.
 
-### 📊 [Test Strategy & Documentation](docs/)
-Testing approach, methodology decisions, and comprehensive lessons learned throughout the project.
-
 ---
 
 ## 💡 Why This Portfolio Demonstrates Technical Skills
@@ -121,7 +118,7 @@ Testing approach, methodology decisions, and comprehensive lessons learned throu
 Multiple security vulnerabilities identified including session management flaws, predictable token patterns, and authorization gaps - showing advanced security awareness beyond functional testing.
 
 **API Testing Expertise**  
-Data-driven Postman testing with 30+ automated scenarios, systematic authentication state coverage, and proper REST API validation including error handling verification.
+Data-driven Postman testing with automated scenarios, systematic authentication state coverage, and proper REST API validation including error handling verification.
 
 **Systematic Approach**  
 Organized test cases, reproducible bug reports with clear steps, and comprehensive documentation showing methodical quality assurance process.
